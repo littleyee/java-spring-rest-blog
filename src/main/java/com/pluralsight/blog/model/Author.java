@@ -12,17 +12,22 @@ import java.util.stream.Collectors;
 
 @Entity
 public class Author {
+    @OneToMany
+    List<Post> posts;
     public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String firstname;
     private String lastname;
+    @JsonIgnore
     private String username;
+    @JsonIgnore
     private String password;
 
     public Author() {
         super();
+        posts = new ArrayList<>();
     }
 
     public Author(String username, String firstname, String lastname, String password) {
@@ -85,10 +90,10 @@ public class Author {
     }
 
     public List<Post> getPosts() {
-        return null;
+        return posts;
     }
 
     public void addPost(Post post) {
-        return;
+        posts.add(post);
     }
 }
